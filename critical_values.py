@@ -4,50 +4,66 @@ Lab Critical Value Engine
 Flags critical/panic lab values against age/sex-specific limits with delta-check integration.
 Stdlib parser / mapper with batch CSV and single lookup.
 """
-import argparse, csv, sys, re, json, pathlib
+import argparse
+import csv
+import sys
+from pathlib import Path
 
-def lookup(query, extra=None):
+
+def lookup(query):
     """Single lookup: token overlap + substring scoring (no deps). Returns top hits."""
     q = str(query).lower().strip()
-    # tiny built-in dictionary per project slug for demo
-    bank = {
-        "loinc-lab-mapper": [("2160-0 Creatinine","creatinine"),("6690-2 WBC","wbc"),("718-7 Hemoglobin","hemoglobin"),("4548-4 HbA1c","hba1c")],
-        "hla-compatibility-matcher": [("A*02:01","A02"),("B*07:02","B07"),("DRB1*15:01","DRB115")],
-        "icd10-ccsr-mapper": [("I10 Hypertension","I10"),("E11 Type 2 diabetes","E11"),("J18 Pneumonia","J18")],
-        "antibiogram-mdr-classifier": [("MDR","multidrug"),("XDR","extensive"),("PDR","pandrug")],
-        "fhir-bundle-validator": [("Patient","patient"),("Observation","observation")],
-        "cyp-drug-interaction-checker": [("CYP3A4 substrate","cyp3a4"),("CYP2D6 inhibitor","cyp2d6")],
-    }
-    candidates = bank.get("lab-critical-value-engine", [("generic hit","generic")])
-    scored=[]
-    for label,key in candidates:
+    # built-in dictionary of lab value terms
+    candidates = [
+        ("2160-0 Creatinine", "creatinine"),
+        ("6690-2 WBC", "wbc"),
+        ("718-7 Hemoglobin", "hemoglobin"),
+        ("4548-4 HbA1c", "hba1c"),
+        ("Platelets", "platelets"),
+    ]
+    scored = []
+    for label, key in candidates:
         score = 0
-        if key in q: score+=10
+        if key in q:
+            score += 10
         # token overlap
-        qt=set(q.split()); lt=set(label.lower().split())
-        overlap=len(qt & lt)
-        score+=overlap*2
-        scored.append((score,label))
+        qt = set(q.split())
+        lt = set(label.lower().split())
+        overlap = len(qt & lt)
+        score += overlap * 2
+        scored.append((score, label))
     scored.sort(reverse=True)
-    top=scored[0] if scored else (0,"no match")
+    top = scored[0] if scored else (0, "no match")
     return {"query": query, "top_hit": top[1], "score": top[0], "all": scored[:3]}
 
-def process_csv(inp,out):
-    import csv
-    with open(inp, newline="", encoding="utf-8-sig") as f:
-        r=csv.DictReader(f); rows=list(r); fn=r.fieldnames
+def process_csv(inp, out):
+    """Process a CSV file, looking up each row's query value against the lab value bank."""
+    inp_path = Path(inp)
+    if not inp_path.is_file():
+        raise FileNotFoundError(f"Input CSV file not found: {inp}")
+    with open(inp_path, newline="", encoding="utf-8-sig") as f:
+        r = csv.DictReader(f)
+        rows = list(r)
+        fn = r.fieldnames or []
+        if not fn:
+            raise ValueError("CSV file has no header row")
         # guess query column
         qcol = fn[0]
-        for cand in ["query","test","drug","code","variant","hla","lab","name"]:
+        for cand in ["query", "test", "drug", "code", "variant", "hla", "lab", "name"]:
             if cand in [c.lower() for c in fn]:
-                qcol = [c for c in fn if c.lower()==cand][0]; break
-        results=[]
+                qcol = [c for c in fn if c.lower() == cand][0]
+                break
+        results = []
         for row in rows:
-            res=lookup(row.get(qcol,""), row)
-            merged={**row, "top_hit": res["top_hit"], "lookup_score": res["score"]}
+            res = lookup(row.get(qcol, ""))
+            merged = {**row, "top_hit": res["top_hit"], "lookup_score": res["score"]}
             results.append(merged)
-    with open(out,"w",newline="",encoding="utf-8") as f:
-        w=csv.DictWriter(f, fieldnames=list(fn)+["top_hit","lookup_score"]); w.writeheader(); w.writerows(results)
+    out_path = Path(out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(fn) + ["top_hit", "lookup_score"])
+        w.writeheader()
+        w.writerows(results)
     return results
 
 def build_parser():
@@ -66,5 +82,5 @@ def main(argv=None):
         res=process_csv(a.input, a.output); print(f"Processed {len(res)} -> {a.output}"); return 0
     p.print_help(); return 1
 
-if __name__=="__main__":
-    import sys; sys.exit(main())
+if __name__ == "__main__":
+    sys.exit(main())
