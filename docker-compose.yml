@@ -1,14 +1,12 @@
-version: '3.8'
-
 services:
   lab-critical-value-engine:
     build: .
     container_name: lab-critical-value-engine
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      - AUDIT_SECRET_KEY=${AUDIT_SECRET_KEY:?AUDIT_SECRET_KEY must be set in the environment}
-      - MODEL_PROVIDER=mock
+      - AUDIT_SECRET_KEY=${AUDIT_SECRET_KEY:?AUDIT_SECRET_KEY must be set}
+      - LAB_API_KEY=${LAB_API_KEY:?LAB_API_KEY must be set}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
