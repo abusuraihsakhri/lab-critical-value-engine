@@ -42,4 +42,6 @@ jobs:
         "
 
     - name: Validate browser JavaScript
-      run: node --check web/demo.js
+      run: |
+        node --check web/demo.js
+        node tests/test_demo.js
