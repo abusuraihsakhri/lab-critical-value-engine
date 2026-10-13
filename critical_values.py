@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Lab Critical Value Engine
-Flags critical/panic lab values against age/sex-specific limits with delta-check integration.
+Demonstrates terminology matching only; no critical-value thresholds or delta checks.
 Stdlib parser / mapper with batch CSV and single lookup.
 """
 import argparse

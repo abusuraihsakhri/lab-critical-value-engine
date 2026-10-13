@@ -1,7 +1,7 @@
 """
 Pydantic v2 schemas and data definitions for Lab Critical Value Engine.
 Domain: Clinical & Biomedical AI
-Standard: CAP / CLSI / ISO Standards
+Unvalidated synthetic demonstration only.
 """
 import datetime
 from enum import Enum

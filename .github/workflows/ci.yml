@@ -1,4 +1,4 @@
-name: Lab Critical Value Engine CI/CD & Security Verification
+name: Lab Critical Value Engine Tests
 
 on:
   push:

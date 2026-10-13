@@ -1,7 +1,7 @@
 """
 Specialized Domain Worker Agents for Lab Critical Value Engine.
 Domain: Clinical & Biomedical AI
-Standard: CAP / CLSI / ISO Standards
+Unvalidated generic demonstration rules.
 """
 import uuid
 from typing import Dict, Any, List, Optional

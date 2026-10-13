@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "lab-critical-value-engine"
 version = "3.0.1"
-description = "Flags critical/panic lab values against age/sex-specific limits with delta-check integration."
+description = "Synthetic generic-rule demonstration and small laboratory terminology lookup."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
