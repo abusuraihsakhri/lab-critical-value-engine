@@ -1,112 +1,87 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Lab Critical Value Engine API",
-    "description": "Enterprise Distributed Component Platform (Clinical & Cryptographic AI) adhering to CAP / CLSI / NIST Standards.",
-    "version": "3.0.0-ENTERPRISE",
-    "contact": {
-      "name": "Dr. Abu Suraih Sakhri",
-      "url": "https://github.com/abusuraihsakhri"
+    "title": "Lab Critical Value Engine Demo API",
+    "version": "3.0.1",
+    "description": "Synthetic demonstration only; thresholds are not clinically validated."
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
     }
   },
   "paths": {
     "/health": {
       "get": {
-        "summary": "Health and metadata check",
+        "summary": "Health (public)",
         "responses": {
           "200": {
-            "description": "System optimal"
+            "description": "Service health"
           }
         }
       }
     },
     "/metrics": {
       "get": {
-        "summary": "Prometheus operational metrics",
+        "summary": "Aggregate process metrics (public)",
         "responses": {
           "200": {
-            "description": "Prometheus text metrics"
+            "description": "JSON metrics"
           }
         }
       }
     },
     "/api/audit": {
       "post": {
-        "summary": "Dispatch task payload across specialized workers",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "task_id": {
-                    "type": "string"
-                  },
-                  "target_identifier": {
-                    "type": "string"
-                  },
-                  "primary_metric": {
-                    "type": "number"
-                  },
-                  "secondary_metric": {
-                    "type": "number"
-                  },
-                  "status_descriptor": {
-                    "type": "string"
-                  },
-                  "is_critical_flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "task_id",
-                  "target_identifier",
-                  "primary_metric"
-                ]
-              }
-            }
+        "security": [
+          {
+            "ApiKeyAuth": []
           }
-        },
+        ],
+        "summary": "Synthetic task evaluation",
         "responses": {
           "200": {
-            "description": "Consensus dossier with HMAC signature"
+            "description": "Generic demo dossier"
+          },
+          "401": {
+            "description": "Missing or invalid key"
+          },
+          "503": {
+            "description": "API key not configured"
           }
         }
       }
     },
     "/api/chat": {
       "post": {
-        "summary": "Air-gapped supervisory conversational assistant",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "query": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "query"
-                ]
-              }
-            }
+        "security": [
+          {
+            "ApiKeyAuth": []
           }
-        },
+        ],
+        "summary": "Deterministic mock response",
         "responses": {
           "200": {
-            "description": "Supervisory response"
+            "description": "Demo reply"
           }
         }
       }
     },
     "/api/audit/logs": {
       "get": {
-        "summary": "Retrieve and cryptographically verify HMAC audit trail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "In-process signed audit-chain snapshot",
         "responses": {
           "200": {
-            "description": "Cryptographic audit trail"
+            "description": "Audit log and verification result"
           }
         }
       }

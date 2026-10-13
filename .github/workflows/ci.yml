@@ -1,4 +1,4 @@
-name: Lab Critical Value Engine CI/CD & Security Verification
+name: Lab Critical Value Engine Tests
 
 on:
   push:
@@ -24,17 +24,24 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install fastapi uvicorn pydantic pytest
+        pip install -e ".[dev]"
+        python -m pip check
+        python -m compileall -q agents cli.py critical_values.py enrichment.py simulator.py
 
     - name: Run Pytest Suite
       run: |
         pytest -v
 
-    - name: Security SAST & Zero-PHI Audit
+    - name: Audit chain and pattern guard smoke test
       run: |
         python -c "
         from agents.base import PHIGuard, AuditLogger
         import pytest
         assert AuditLogger.verify_integrity() is True
-        print('Security & Zero-PHI Audit Passed!')
+        print('Audit and identifier-pattern smoke tests passed!')
         "
+
+    - name: Validate browser JavaScript
+      run: |
+        node --check web/demo.js
+        node tests/test_demo.js

@@ -1,6 +1,6 @@
 """
 Enrichment Feature Implementation for lab-critical-value-engine.
-Generated based on domain-specific requirements in specifications.
+Generic synthetic placeholders only; thresholds have no clinical validation.
 """
 from dataclasses import dataclass, field
 from typing import Dict, Any, List, Optional, Tuple
@@ -39,13 +39,13 @@ class FeaturesEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Features: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Features: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = FeaturesEngineResult(
             feature_name="Features",
@@ -89,13 +89,13 @@ class CriticalValueAlertEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Critical Value Alert Engine: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Critical Value Alert Engine: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = CriticalValueAlertEngineResult(
             feature_name="Critical Value Alert Engine",
@@ -139,13 +139,13 @@ class QualityControlDashboardEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Quality Control Dashboard: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Quality Control Dashboard: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = QualityControlDashboardEngineResult(
             feature_name="Quality Control Dashboard",
@@ -189,13 +189,13 @@ class TurnaroundTimeAnalyzerEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Turnaround Time Analyzer: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Turnaround Time Analyzer: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = TurnaroundTimeAnalyzerEngineResult(
             feature_name="Turnaround Time Analyzer",
@@ -239,13 +239,13 @@ class SpecimenRejectionTracker:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Specimen Rejection Tracker: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Specimen Rejection Tracker: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = SpecimenRejectionTrackerResult(
             feature_name="Specimen Rejection Tracker",
@@ -289,13 +289,13 @@ class ReferenceRangeValidationEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Reference Range Validation: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Reference Range Validation: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = ReferenceRangeValidationEngineResult(
             feature_name="Reference Range Validation",
@@ -339,13 +339,13 @@ class DeltaCheckAnalyzerEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Delta Check Analyzer: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Delta Check Analyzer: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = DeltaCheckAnalyzerEngineResult(
             feature_name="Delta Check Analyzer",
@@ -389,13 +389,13 @@ class PointofcareTestingComplianceEngine:
         if primary_value > self.threshold * 2:
             status = "CRITICAL_ALERT"
             alerts.append(f"Point-of-Care Testing Compliance: Primary value {primary_value:.2f} breached critical threshold ({self.threshold * 2:.2f})")
-            recs.append("Initiate immediate protocol review and escalate to attending lead.")
+            recs.append("Demo threshold exceeded. Do not use this result for patient care.")
         elif primary_value > self.threshold:
             status = "WARNING"
             alerts.append(f"Point-of-Care Testing Compliance: Value {primary_value:.2f} exceeds baseline threshold ({self.threshold:.2f})")
-            recs.append("Increase monitoring frequency and perform secondary verification.")
+            recs.append("Review the synthetic demonstration input; no clinical recommendation is implied.")
         else:
-            recs.append("Parameters nominal under standard operating bounds.")
+            recs.append("Example measurement did not exceed the generic demo threshold.")
 
         res = PointofcareTestingComplianceEngineResult(
             feature_name="Point-of-Care Testing Compliance",

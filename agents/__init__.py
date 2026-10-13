@@ -1,7 +1,7 @@
 """
-Lab Critical Value Engine — Enterprise Automated Analytical Suite.
+Lab Critical Value Engine — Synthetic generic-threshold demonstration.
 Domain: Clinical & Biomedical AI
-Standard: CAP / CLSI / ISO Standards
+Not validated for clinical use.
 
 """
-__version__ = "3.0.0-ENTERPRISE"
+__version__ = "3.0.1"

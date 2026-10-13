@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lab-critical-value-engine"
-version = "3.0.0"
-description = "Flags critical/panic lab values against age/sex-specific limits with delta-check integration."
+version = "3.0.1"
+description = "Synthetic generic-rule demonstration and small laboratory terminology lookup."
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
@@ -31,10 +31,14 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
+    "httpx>=0.27",
 ]
 
 [project.scripts]
 lab-critical-value-engine = "cli:main"
+
+[tool.setuptools]
+py-modules = ["cli", "critical_values", "enrichment", "simulator"]
 
 [tool.setuptools.packages.find]
 include = ["agents*"]

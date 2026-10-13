@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Lab Critical Value Engine
-Flags critical/panic lab values against age/sex-specific limits with delta-check integration.
+Demonstrates terminology matching only; no critical-value thresholds or delta checks.
 Stdlib parser / mapper with batch CSV and single lookup.
 """
 import argparse
@@ -33,8 +33,8 @@ def lookup(query):
         score += overlap * 2
         scored.append((score, label))
     scored.sort(reverse=True)
-    top = scored[0] if scored else (0, "no match")
-    return {"query": query, "top_hit": top[1], "score": top[0], "all": scored[:3]}
+    top = scored[0] if scored and scored[0][0] > 0 else (0, None)
+    return {"query": query, "top_hit": top[1], "score": top[0], "all": [item for item in scored if item[0] > 0][:3]}
 
 def process_csv(inp, out):
     """Process a CSV file, looking up each row's query value against the lab value bank."""
@@ -61,7 +61,7 @@ def process_csv(inp, out):
     out_path = Path(out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(fn) + ["top_hit", "lookup_score"])
+        w = csv.DictWriter(f, fieldnames=list(dict.fromkeys(list(fn) + ["top_hit", "lookup_score"])))
         w.writeheader()
         w.writerows(results)
     return results
